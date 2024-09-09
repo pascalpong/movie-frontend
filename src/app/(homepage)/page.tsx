@@ -1,34 +1,36 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMovies } from '@/slices/movie/moviesSlice';
+"use client"
+
 import Header from '@/components/Header';
 import MovieCard from '@/components/MovieCard';
-import { RootState } from '@/store/store';
-import type AppDispatch from '@/store/store';
+import { useGetMoviesQuery } from '@/services/movieService';
+import { useEffect, useState } from 'react';
+import { Container, Typography, Box } from '@mui/material';
+import { MovieType } from '@/models';
 
 export default function Home() {
-  const dispatch = useDispatch<AppDispatch>();
-  const movies = useSelector((state: RootState) => state.movies.movies);
-  const movieStatus = useSelector((state: RootState) => state.movies.status);
+  const { data } = useGetMoviesQuery({});
+  const [movies, setMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
-    if (movieStatus === 'idle') {
-      dispatch(getMovies()); // Cast to any if necessary
-    }
-  }, [movieStatus, dispatch]);
+    if(data && data.data.data) {
+      setMovies(data.data.data)
+    } 
+  }, [data, setMovies]); 
 
   return (
     <div>
       <Header />
-      <main className="p-4">
-        <h1 className="text-2xl font-bold">Free Movies</h1>
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <main>
+        <Container>
+          <Typography variant="h3" className="font-bold mb-4" color="error">Free Movies</Typography>
+          <Box display="grid" gridTemplateColumns={{ xs: 'repeat(2, 1fr)', lg: 'repeat(6, 1fr)' }} gap={2}>
             {movies.map((movie, index) => (
-              <MovieCard key={index} movie={movie} />
+              <div className="grid-item" key={index}>
+                <MovieCard movie={movie} />
+              </div>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Container>
       </main>
     </div>
   );
