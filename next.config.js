@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     domains: [
       'via.placeholder.com',
-      'api.tv8282.com'
+      'api.tv8282.com',
+      'tinypic.host'
     ],
   },
 }

@@ -7,14 +7,22 @@ export const MovieService = createApi({
   baseQuery: baseQueryWithoutToken,
   endpoints: (builder) => ({
     getMovies: builder.query<any, any>({
-      query: () => ({
-        url: `movies`,
+      query: ({category, page}:{category: number, page: number}) => ({
+        url: `movies?${category || page ? `category=${category}&page=${page}` : ''}`,
         method: 'GET'
       })
     }),
+    playVideo: builder.mutation<any, any>({
+      query: (body) => ({
+        url: `movie/play`,
+        method: 'POST',
+        body
+      })
+    })
   })
 });
 
 export const {
-  useGetMoviesQuery
+  useGetMoviesQuery,
+  usePlayVideoMutation
 } = MovieService;

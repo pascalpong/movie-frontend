@@ -30,6 +30,17 @@ export interface MovieType {
   views: string;
 }
   
+export interface AdType {
+  id: string;
+  img: string;
+  dis: string;
+  domain: string;
+  shop_name: string | null;
+  add_time: string | null;
+  rank: string | null;
+  w: string;
+  h: string;
+}
 
 export interface ResponsePagination<T> {
   data?: T;
