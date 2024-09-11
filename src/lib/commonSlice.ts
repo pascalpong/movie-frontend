@@ -6,7 +6,7 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  permissions: null,
+  permissions: [],
   lang: ''
 };
 
