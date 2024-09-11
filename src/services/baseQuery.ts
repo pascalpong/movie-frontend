@@ -34,7 +34,7 @@ export const baseQueryWithReAuth: BaseQueryFn<
     const refreshArgs = {
       url: '/get-refresh-token',
       body: {
-        refreshToken: JSON.parse(localStorage.getItem('tokens')).token
+        refreshToken: JSON.parse(localStorage.getItem('tokens') || '{}').token
           .refreshToken
       },
       method: 'POST'

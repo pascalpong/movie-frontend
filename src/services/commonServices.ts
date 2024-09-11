@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithReAuth } from './baseQuery';
-import { Permissions, ResponsePagination, ResponseType } from 'src/models';
+import { baseQueryWithReAuth } from './baseQuery'; 
+import { ResponseType } from '@/models';
 
 interface RolesBody {
   name?: string;
