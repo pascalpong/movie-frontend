@@ -36,7 +36,7 @@ const Category = ({ params }: { params: { id: string } }) => {
                 <Announcement announcements={notice}/>
             </div>
             <h1 className="text-xl font-bold transition-transform duration-300 hover:scale-105 pb-2">
-                { movieCategoriesDetails[id]?.title }
+                { movieCategoriesDetails[id as unknown as keyof typeof movieCategoriesDetails]?.title }
             </h1>
             <Box display="grid" gridTemplateColumns={{ xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(4, 1fr)', lg: 'repeat(6, 1fr)' }} gap={2}>
                 {movies.map((movie: MovieType, index: number) => (
