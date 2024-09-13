@@ -1,7 +1,8 @@
-import { MovieService } from '@/services/movieService';
+
 import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import commonSlice from './commonSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import { MovieService } from '@/services/movieService';
 
 export const makeStore = (): EnhancedStore => configureStore({
   reducer: {

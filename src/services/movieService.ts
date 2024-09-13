@@ -7,8 +7,8 @@ export const MovieService = createApi({
   baseQuery: baseQueryWithoutToken,
   endpoints: (builder) => ({
     getMovies: builder.query<any, any>({
-      query: ({category, page}:{category: number, page: number}) => ({
-        url: `movies?${category || page ? `category=${category}&page=${page}` : ''}`,
+      query: ({category, page, search}:{category: number, page: number, search: string}) => ({
+        url: `movies?${category ? `category=${category}&` : ''}${page ? `page=${page}&` : ''}${search ? `search=${search}&` : ''}`,
         method: 'GET'
       })
     }),
@@ -18,7 +18,7 @@ export const MovieService = createApi({
         method: 'POST',
         body
       })
-    })
+    }),
   })
 });
 

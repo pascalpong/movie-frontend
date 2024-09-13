@@ -7,7 +7,7 @@ const HomepageLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div>
             <Header />
-            <main className="py-2">
+            <main className="py-2 lg:pt-24 pt-20">
                 <Container>
                 {children} 
                 </Container>

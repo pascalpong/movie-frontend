@@ -25,7 +25,6 @@ export const commonSlice = createSlice({
   }
 });
 
-// Action creators are generated for each case reducer function
 export const { getPermissions, getLang } = commonSlice.actions;
 
 export default commonSlice.reducer;

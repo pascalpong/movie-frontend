@@ -1,6 +1,9 @@
+"use client"
+
 import { useState } from "react";
 import { movieCategoriesDetails } from "@/models/movie";
 import { Container, Button, Menu, MenuItem } from "@mui/material";
+import SearchBar from "../SearchBar";
 
 export default function Header() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -15,7 +18,7 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-gray-800 text-white p-4 shadow-md">
+        <header className="bg-gray-800 text-white py-4 shadow-md fixed w-full z-10">
             <Container>
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold transition-transform duration-300 hover:scale-105">
@@ -52,9 +55,10 @@ export default function Header() {
                                     <a href={`/category/${detail.id}`}>{detail.title}</a>
                                 </MenuItem>
                             ))}
+                            <SearchBar />
                         </Menu>
                     </div>
-                    <nav className="hidden md:flex space-x-4">
+                    <nav className="hidden md:flex space-x-4 items-center justify-center flex">
                         <a href="/" className="hover:text-yellow-500 transition-colors duration-300">HOME</a>
                         {Object.values(movieCategoriesDetails).map((detail) => (
                             <a 
@@ -65,7 +69,8 @@ export default function Header() {
                                 {detail.title}
                             </a>
                         ))}
-                    </nav>
+                        <SearchBar />
+                    </nav> 
                 </div>
             </Container>
         </header>
