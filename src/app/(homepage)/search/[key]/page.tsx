@@ -17,7 +17,7 @@ const Search = () => {
     
     const [movies, setMovies] = useState<MovieType[]>([])
     const [page, setPage] = useState<number>()
-    const [notice, setNotice] = useState<string[]>(['No Notice'])
+    const [notice, setNotice] = useState<string[]>([])
     const [pageInfo, setPageInfo] = useState<PageInfoType>()
     const { data } = useGetMoviesQuery({search: key, page})
 
@@ -25,6 +25,7 @@ const Search = () => {
         if(data) {
             const { current_page, last_page, per_page, total } = data.data;
             setPageInfo({ current_page, last_page, per_page, total })
+            setNotice(['No Notice'])
             setMovies(data.data.data)
         }
     },[data])
