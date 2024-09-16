@@ -5,7 +5,7 @@ import { movieCategoriesDetails } from "@/models/movie";
 import { Container, Button, Menu, MenuItem } from "@mui/material";
 import SearchBar from "../SearchBar";
 
-export default function Header() {
+const Header = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -76,3 +76,5 @@ export default function Header() {
         </header>
     );
 }
+
+export default Header;
