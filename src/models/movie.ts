@@ -65,7 +65,7 @@ export interface PlayType {
 export interface ProfilesType {
     id: number,
     actor: string|null,
-    actor_images: string[],
+    actor_images: string | { [key: string]: string },
     author: string|null,
     bunny_url: string|null,
     cate_id: number|null,

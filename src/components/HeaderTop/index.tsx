@@ -6,6 +6,7 @@ import logo from '@/assets/logo.png'
 import SearchMovie from '../SearchMovie';
 import ModalLogin from '../ModalLogin';
 import { useRouter } from 'next/navigation';
+import LogoutButton from '../LogoutButton';
 
 const HeaderTop: React.FC = () => {
     const router = useRouter()
@@ -16,6 +17,8 @@ const HeaderTop: React.FC = () => {
     const handleOpenLogin = () => {
         setOpenLogin(true);
     };
+    const accessToken = localStorage.getItem('accessToken');
+
     return (
         <>
             <div className='flex flex-col justify-center bg-header-top h-[79px]'>
@@ -27,31 +30,38 @@ const HeaderTop: React.FC = () => {
                             </div>
                             <SearchMovie />
                         </div>
+                        
                         <div className='flex gap-[5px] items-center w-[30%] justify-end'>
-                            <Button
-                                onClick={handleOpenLogin}
-                                sx={{
-                                    height: "40px",
-                                    width: "110px",
-                                    background: "#4C3D59",
-                                    color: "white",
-                                    borderRadius: "5px",
-                                    marginTop: "1px",
-                                    boxShadow: '0px 2px 5px 0px #1D1327'
-                                }}>
-                                로그인
-                            </Button>
-                            <Button sx={{
-                                height: "40px",
-                                width: "110px",
-                                background: "#5176FF",
-                                color: "white",
-                                borderRadius: "5px",
-                                marginTop: "1px",
-                                boxShadow: '0px 2px 5px 0px #1D1327'
-                            }}>
-                                가입
-                            </Button>
+                            {accessToken ? (
+                                <LogoutButton/>
+                            ) : (
+                                <>
+                                    <Button
+                                        onClick={handleOpenLogin}
+                                        sx={{
+                                            height: "40px",
+                                            width: "110px",
+                                            background: "#4C3D59",
+                                            color: "white",
+                                            borderRadius: "5px",
+                                            marginTop: "1px",
+                                            boxShadow: '0px 2px 5px 0px #1D1327'
+                                        }}>
+                                        로그인
+                                    </Button>
+                                    <Button sx={{
+                                        height: "40px",
+                                        width: "110px",
+                                        background: "#5176FF",
+                                        color: "white",
+                                        borderRadius: "5px",
+                                        marginTop: "1px",
+                                        boxShadow: '0px 2px 5px 0px #1D1327'
+                                    }}>
+                                        가입
+                                    </Button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </Container>

@@ -18,7 +18,7 @@ export const MovieService = createApi({
         method: 'GET'
       })
     }),
-    getMovieDetails: builder.mutation<any, any>({
+    getMovieDetails: builder.mutation<any, {id: string, title: string, number_ep?: string | null}>({
       query: (body) => ({
         url: `movie/detail`,
         method: 'POST',

@@ -9,11 +9,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Image from 'next/image';
-import { TextField } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { MovieType } from '@/models';
+import { useRouter } from 'next/navigation';
+import { encodeData } from '@/utils/utils';
 
 
 const SortingTable = ({HeadCell, data}: {HeadCell: string[], data: MovieType[]}) => {
+
+  const router = useRouter()
+  const seeDetails = (title_id: string, title: string) => {
+    const encode = encodeData({title_id, title});
+    router.push(`/admin/movies/${encode}`)
+  }
+
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -37,11 +46,21 @@ const SortingTable = ({HeadCell, data}: {HeadCell: string[], data: MovieType[]})
                 {HeadCell.map((head) => (
                   <TableCell align="left" key={head}>
                     {head === 'image' ? (
+                      <div className='w-full flex justify-center'>
                         <Image src={row[head] ?? ""} alt='' 
                             width={100}
                             height={100}
                         />
-                    ) : ( <TextField multiline={head === 'intro' ? true : false} value={row[head as keyof MovieType]} /> )
+                      </div>
+                    ) : head === '' ? (
+                      <div className='flex justify-between gap-2'>
+                        <Button variant='outlined' onClick={() => seeDetails(`${row.title_id}`, row.title)}>Details</Button>
+                      </div>
+                    ) : ( 
+                      <Typography variant='body1'>
+                        {row[head as keyof MovieType]}
+                      </Typography>
+                    )
                     }
                   </TableCell>
                 ))}

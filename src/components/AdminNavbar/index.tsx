@@ -2,15 +2,18 @@
 
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
+import LogoutButton from '../LogoutButton';
 
 interface AdminNavbarProps {
   handleDrawerToggle: () => void;
 }
 
+
 const AdminNavbar = ({ handleDrawerToggle }: AdminNavbarProps) => {
+
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-      <Toolbar>
+      <Toolbar className='flex justify-between'>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -23,6 +26,7 @@ const AdminNavbar = ({ handleDrawerToggle }: AdminNavbarProps) => {
         <Typography variant="h6" noWrap component="div">
           Admin Dashboard
         </Typography>
+        <LogoutButton />
       </Toolbar>
     </AppBar>
   );

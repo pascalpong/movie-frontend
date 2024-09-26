@@ -18,7 +18,7 @@ const withAuth = <P extends object>(Component: ComponentType<P>): React.FC<P> =>
             setIsAuthenticated(authenticated);
 
             if (!authenticated) {
-                router.push('/login');
+                router.push('/');
             }
         }, [router]);
 
