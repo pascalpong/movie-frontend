@@ -9,6 +9,8 @@ export const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_API_URL}`,
   prepareHeaders: (headers) => {
     const token = localStorage.getItem('tokens');
+    console.log("token124",token);
+    
     if (token) {
       const tokenParse = JSON.parse(token);
       const {

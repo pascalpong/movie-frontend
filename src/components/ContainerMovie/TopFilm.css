@@ -1,0 +1,23 @@
+#style-14::-webkit-scrollbar-track
+{
+    background-color: linear-gradient(270deg, #262E39 0%, #12171E 100%);
+    background: transparent;
+    width: 0;
+    padding: 12px;
+}
+
+#style-14::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+
+    height: 32px;
+    background-color: transparent; 
+}
+
+#style-14::-webkit-scrollbar-thumb
+{
+    margin-right: 12px;
+	background-color: #3D4663;
+
+}

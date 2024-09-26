@@ -8,7 +8,7 @@ export const AuthService = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<
       ResponseType<{
-        userId: string;
+        id: string;
         username: string;
         tokens: {
           accessToken: string;

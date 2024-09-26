@@ -6,17 +6,15 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
 import 'tailwindcss/tailwind.css';
-
 const store = makeStore();
 const theme = createTheme();
-
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <html lang="en">
-          <body className="bg-gray-900 text-white">
+          <body className="text-white bg-gray-900">
             {children}
           </body>
         </html>

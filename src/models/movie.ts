@@ -63,30 +63,31 @@ export interface PlayType {
 }
 
 export interface ProfilesType {
-    id: string|null,
+    id: number,
+    actor: string|null,
+    actor_images: string[],
+    author: string|null,
+    bunny_url: string|null,
+    cate_id: number|null,
+    createdBy: string|null,
+    createdDate: string|null,
+    des: string|null,
+    duration: string|null,
+    genre: string|null,
+    image: string|null,
+    location: string|null,
+    number_ep: string|null,
+    producer: string|null,
+    release_date: string|null,
+    status: boolean|null,
+    statusvideo: boolean|null,
     title: string|null,
-    intro: string|null,
-    doc1: string|null,
-    doc2: string|null,
-    doc3: string|null,
-    doc4: string|null,
-    doc5: string|null,
-    doc6: string|null,
-    doc7: string|null,
-    doc8: string|null,
-    add_time: string|null,
-    up_time: string|null,
-    cc: string|null,
-    img: string|null,
-    category: string|null,
-    dis: string|null,
-    run_time: string|null,
-    rank: string|null,
-    del: string|null,
-    views: string|null,
-    new: string|null,
-    token: string|null,
-    sub_title: string|null,
+    title_id: number|null,
+    updatedBy: string|null,
+    updatedDate: string|null,
+    url_movie: string|null,
+    video_episode: number|null,
+    view_count: string|null,
 }
 
 export interface PageInfoType {
@@ -94,4 +95,22 @@ export interface PageInfoType {
     last_page: number|null, 
     per_page: number|null, 
     total: number|null 
+}
+
+export interface IHeaderMovie {
+    id :number,
+    type : string,
+    title : string
+}
+
+export interface IBannerMovie {
+    id : number,
+    img :string
+}
+
+export interface IMovieIntroduce {
+    img: string,
+    title: string,
+    id: number,
+    views?: string
 }

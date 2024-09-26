@@ -7,22 +7,43 @@ export const MovieService = createApi({
   baseQuery: baseQueryWithoutToken,
   endpoints: (builder) => ({
     getMovies: builder.query<any, any>({
-      query: ({category, page, search}:{category: number, page: number, search: string}) => ({
-        url: `movies?${category ? `category=${category}&` : ''}${page ? `page=${page}&` : ''}${search ? `search=${search}&` : ''}`,
+      query: ({category, page,limit}:{category: number, page: number,limit : string}) => ({
+        url: `movies?${category ? `genre=${category}&` : ''}${page ? `page=${page}&` : ''}${limit ? `limit=${limit}&` : ''}`,
         method: 'GET'
       })
     }),
-    playVideo: builder.mutation<any, any>({
+    searchMovies: builder.query<any, any>({
+      query: ({ page, search}:{ page: number, search: string}) => ({
+        url: `movies/search?${page ? `page=${page}&` : ''}${search ? `search=${search}&` : ''}`,
+        method: 'GET'
+      })
+    }),
+    getMovieDetails: builder.mutation<any, any>({
       query: (body) => ({
-        url: `movie/play`,
+        url: `movie/detail`,
         method: 'POST',
         body
       })
     }),
+    getCategoryMovies: builder.query<any, any>({
+      query: ({ limit, latest, popularity }) => ({
+        url: `movie/categories?${limit ? `limit=${limit}&`:''}${latest ? `latest=${latest}&`:''}${popularity ? `popularity=${popularity}&`:''}`,
+        method: 'GET'
+      })
+    }),
+    getEpisodes: builder.mutation<any, any>({
+      query: ({id}: {id: number}) => ({
+        url: `movies/episodes?id=${id}`,
+        method: 'GET'
+      })
+    })
   })
 });
 
 export const {
   useGetMoviesQuery,
-  usePlayVideoMutation
+  useSearchMoviesQuery,
+  useGetCategoryMoviesQuery,
+  useGetMovieDetailsMutation,
+  useGetEpisodesMutation
 } = MovieService;

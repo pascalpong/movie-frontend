@@ -1,0 +1,38 @@
+.bg-mobile-header {
+    background: linear-gradient(90deg, #151E29 0%, #284366 16.28%, #284366 83.8%, #151E29 100%);
+}
+.bg-submenu-header {
+    background: linear-gradient(90deg, #151E29 0%, #284366 99.5%);
+
+}
+@keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+  }
+  
+  /* Define the animation classes */
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-in;
+  }
+  

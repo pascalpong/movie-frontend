@@ -8,12 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        joro: ['Joro', 'sans-serif'],
+      },
       colors: {
         blue: {
           1: "#2948cd"
         },
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(90deg, #5176FF 0%, #1C232C 100%)', // Adding your linear gradient
       },
     },
   },

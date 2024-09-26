@@ -1,0 +1,79 @@
+  .swiper-introduce .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+   
+ .swiper-introduce .swiper {
+    width: 40%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  
+  }
+  
+ .swiper-introduce .swiper-slide {
+    background-size: cover;
+    background-position: center;
+  }
+  
+ .swiper-introduce .customSwiper2 {
+    height: 50%;
+    width: 100%;
+  }
+  
+  .swiper-introduce .customSwiper {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+  }
+  
+ .swiper-introduce .customSwiper .swiper-slide {
+    width: 20%;
+    height: 100px;
+    opacity: 0.4;
+  }
+  
+ .swiper-introduce .customSwiper .swiper-slide-thumb-active {
+    opacity: 1;
+  }
+  
+.swiper-introduce .swiper.swiper-initialized.swiper-horizontal.swiper-free-mode.swiper-watch-progress.customSwiper.swiper-thumbs {
+    position: absolute;
+    bottom: -46px;
+    right: 43px;
+    object-position: center;
+    object-fit: fill;
+    
+}
+.swiper-introduce .swiper-button-prev {
+    top: unset;
+    bottom: 0;
+    left: 54%;
+    transform: translateX(-50%);
+}
+.swiper-introduce .swiper-button-next {
+    top: unset;
+    bottom: 0;
+    right: 2px;
+}
+.swiper-introduce .swiper-button-prev:after {
+    font-size: xx-large;
+}
+.swiper-introduce .swiper-button-next:after {
+    font-size: xx-large;
+}
+
+.swiper-slide.swiper-slide-visible.swiper-slide-active.swiper-slide-fully-visible.swiper-slide-thumb-active {
+  border-radius: 12px;
+}
+
+.text-introduce {
+  text-align: start;
+    font-family: 'Joro', sans-serif;
+  }

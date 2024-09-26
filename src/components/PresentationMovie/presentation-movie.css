@@ -1,0 +1,27 @@
+@keyframes scaleOut {
+    0% {
+        transform: scaleX(1);
+    }
+    100% {
+        transform: scaleX(0);
+    }
+}
+
+#left, #right {
+    position: fixed;
+    z-index: 9999;
+    width: 50vw;
+    height: 100vh;
+    background-color: gray;
+}
+
+#left {
+    transform-origin: left center;
+    animation: scaleOut 2s forwards;
+}
+
+#right {
+    transform-origin: right center;
+    animation: scaleOut 2s forwards; 
+    animation-delay: 0.5s; 
+}

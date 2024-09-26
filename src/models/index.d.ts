@@ -1,35 +1,46 @@
 type ResponseMessage =
-  | 'SUCCESS'
-  | 'FAILED'
-  | 'NOT_FOUND'
-  | 'UNAUTHORIZED'
-  | 'FORBIDDEN'
-  | 'BAD_REQUEST'
-  | 'INTERNAL_SERVER_ERROR'
-  | 'CREATED'
-  | 'UPDATED'
-  | 'DELETED'
-  | 'DUPLICATE'
-  | 'INVALID'
-  | 'NOT_ALLOWED';
+  | "SUCCESS"
+  | "FAILED"
+  | "NOT_FOUND"
+  | "UNAUTHORIZED"
+  | "FORBIDDEN"
+  | "BAD_REQUEST"
+  | "INTERNAL_SERVER_ERROR"
+  | "CREATED"
+  | "UPDATED"
+  | "DELETED"
+  | "DUPLICATE"
+  | "INVALID"
+  | "NOT_ALLOWED";
 
 export interface MovieType {
   id: number;
   title: string;
-  sub_title: string;
-  intro: string;
-  doc1: string;
-  add_time: string;
-  run_time: string;
-  img: string;
-  category: string;
-  dis: string;
-  rank: string;
-  new: boolean;
-  cc: string;
-  views: string;
+  title_id?: string;
+  actor?: string;
+  author?: string;
+  bunny_url?: string;
+  cate_id?: string;
+  createdBy?: string;
+  createdDate?: string;
+  des?: string;
+  duration?: string;
+  genre?: string;
+  image?: string;
+  latest_ep_date?: string;
+  location?: string;
+  number_ep?: string;
+  producer?: string;
+  release_date?: string;
+  status?: string;
+  statusvideo?: string;
+  updatedBy?: string;
+  updatedDate?: string;
+  url_movie?: string;
+  video_episode?: string;
+  view_count?: string;
 }
-  
+
 export interface AdType {
   id: string;
   img: string;
@@ -116,12 +127,12 @@ export interface Agent extends User {
   };
 }
 type transactionType =
-  | 'win'
-  | 'bet'
-  | 'cancel'
-  | 'deposit'
-  | 'withdraw'
-  | 'user.add_balance';
+  | "win"
+  | "bet"
+  | "cancel"
+  | "deposit"
+  | "withdraw"
+  | "user.add_balance";
 
 export interface Transactions {
   id: string;
@@ -155,14 +166,14 @@ export interface Agent extends User {
   };
 }
 type transactionType =
-  | 'win'
-  | 'bet'
-  | 'cancel'
-  | 'add'
-  | 'charge'
-  | 'adjust'
-  | 'promo_win'
-  | 'exceed_credit';
+  | "win"
+  | "bet"
+  | "cancel"
+  | "add"
+  | "charge"
+  | "adjust"
+  | "promo_win"
+  | "exceed_credit";
 export interface Transactions {
   id: number;
   amount: string | number;

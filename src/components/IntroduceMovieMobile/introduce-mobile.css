@@ -1,0 +1,12 @@
+    .text-introduce {
+      font-family: 'Joro', sans-serif;
+    }
+
+    .introduce-mobile .mySwiper .swiper-button-next,
+    .introduce-mobile .mySwiper .swiper-button-prev {
+        color: white; 
+    }
+    .introduce-mobile .mySwiper .swiper-button-next::after,
+    .introduce-mobile .mySwiper .swiper-button-prev::after {
+        font-size: 32px; 
+    }

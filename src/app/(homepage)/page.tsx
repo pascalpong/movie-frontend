@@ -1,102 +1,152 @@
 "use client"
 
-import MovieCard from '@/components/MovieCard';
-import { useGetMoviesQuery } from '@/services/movieService';
-import { useEffect, useState, useMemo } from 'react';
-import { Typography, Box } from '@mui/material';
-import { AdType, MovieType } from '@/models';
-import AdBanner from '@/components/AdBanner';
-import Link from 'next/link';
+
+import { useGetCategoryMoviesQuery } from '@/services/movieService';
+import { useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
+
 import Announcement from '@/components/Announcement';
 
-const categories = [1, 2, 3, 4, 5, 6];
+import BannerMovies from '@/components/BannerMovies';
+import play_ic from '@/assets/icons/ic_play.svg'
+import Image from 'next/image';
+import ContainerMovie from '@/components/ContainerMovie';
+import useBreakpoint from '@/hook/useBreakpoint';
+import BaseSwiper from '@/components/BaseSwiper';
+import IntroduceMovie from '@/components/IntroduceMovie';
+import { MovieType } from '@/models';
+import CustomSkeleton from '@/components/Skeleton';
+import { useGetAnnouncementsQuery } from '@/services/announcementService';
+import { AnnouncementType } from '@/models/announcement';
+import { useGetBannersQuery } from '@/services/bannerService';
+import { BannerType } from '@/models/ad';
+import { getGenreByName } from '@/utils/utils';
+
+
 
 const HomePage = () => {
-  const [moviesByCategory, setMoviesByCategory] = useState<{ [key: number]: MovieType[] }>({});
-  const ads: AdType[] = [
-      {
-        "id": "3",
-        "img": "https://tinypic.host/images/2024/03/29/639x85JPG.jpeg",
-        "dis": "1",
-        "domain": "https://test.com",
-        "shop_name": null,
-        "add_time": null,
-        "rank": null,
-        "w": "637",
-        "h": "85"
-      },
-      {
-        "id": "2",
-        "img": "https://tinypic.host/images/2024/03/29/639x85JPG.jpeg",
-        "dis": "1",
-        "domain": "https://test.com",
-        "shop_name": null,
-        "add_time": null,
-        "rank": null,
-        "w": "637",
-        "h": "85"
-      },
-      {
-        "id": "1",
-        "img": "https://tinypic.host/images/2024/03/29/639x85JPG.jpeg",
-        "dis": "1",
-        "domain": "https://test.com",
-        "shop_name": null,
-        "add_time": null,
-        "rank": null,
-        "w": "637",
-        "h": "85"
-      }
-    ]
-
-  const category1Query = useGetMoviesQuery({ category: 1, page: 1 });
-  const category2Query = useGetMoviesQuery({ category: 2, page: 1 });
-  const category3Query = useGetMoviesQuery({ category: 3, page: 1 });
-  const category4Query = useGetMoviesQuery({ category: 4, page: 1 });
-  const category5Query = useGetMoviesQuery({ category: 5, page: 1 });
-  const category6Query = useGetMoviesQuery({ category: 6, page: 1 });
-
-  const categoryQueries = useMemo(() => [
-    category1Query, category2Query, category3Query, 
-    category4Query, category5Query, category6Query
-  ], [category1Query, category2Query, category3Query, 
-      category4Query, category5Query, category6Query]);
+  const [cate, setCate] = useState<string[]>([]);
+  const [movies, setMovies] = useState<{ [key: string]: MovieType[] }>({})
+  const screenSize = useBreakpoint();
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const categories = useGetCategoryMoviesQuery({ limit: 12 });
+  const {data: getBanners} = useGetBannersQuery({})
+  const [banners, setBanners] = useState<BannerType[]>([])
+  const [announcements, setAnnouncements] = useState<AnnouncementType[]>([])
+  const {data: getAnnouncement} = useGetAnnouncementsQuery({active: true})
+  useEffect(()=> {
+    if(getAnnouncement)
+      setAnnouncements(getAnnouncement.data)
+  },[getAnnouncement])
+  useEffect(()=>{
+    if(getBanners)
+      setBanners(getBanners.data)
+  },[getBanners])
 
   useEffect(() => {
-    const newMoviesByCategory: { [key: number]: MovieType[] } = {};
 
-    categoryQueries.forEach((query, index) => {
-      if (query.data && query.data.data.data) {
-        newMoviesByCategory[categories[index]] = query.data.data.data.slice(0, 12);
+    try {
+      if (categories.status === 'pending') {
+        setIsLoading(true);
       }
-    });
-
-    setMoviesByCategory(newMoviesByCategory);
-  }, [categoryQueries]);
-
-  const categoryNames = ['HOME', '최신영화', '최신드라마', '최신예능', '최신음악', '생기', '시사/다큐']
+      if (categories && categories.data && categories.status === 'fulfilled') {
+        setCate(Object.keys(categories.data.data));        
+        setMovies(categories.data.data)
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
+  }, [categories]);
 
   return (
     <>
-      <Announcement announcements={['TV8282오신것을환영합니다']}/>
+      <IntroduceMovie />
+      <Announcement announcements={announcements} />
       <div className='py-2'>
-        <AdBanner ads={ads}/>
+        <BannerMovies listBanners={banners} />
       </div>
-      {categories.map((category) => (
-        <div key={category} className="mb-8">
-          <div className='flex justify-between'>
-            <Typography variant="h4" className="font-bold mb-2">{categoryNames[category]}</Typography>
-            <Link href={`/category/${category}`}>더보기</Link>
-          </div>
-          <Box display="grid" gridTemplateColumns={{ xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(4, 1fr)', lg: 'repeat(6, 1fr)' }} gap={2}>
-            {moviesByCategory[category]?.map((movie: MovieType, index: number) => (
-              <div className="grid-item" key={index}>
-                <MovieCard movie={movie} />
-              </div>
-            ))}
-          </Box>
-        </div>
-      ))}
+      {
+        isLoading ? <div className='grid grid-cols-12 gap-3 my-6'>{
+          Array.from({ length: 24 }).map((_, index) => (
+            <div className="col-span-12 xl:col-span-3 md:col-span-4 sm:col-span-6" key={index}>
+              <CustomSkeleton />
+            </div>
+          ))
+
+        }</div> : <>
+          {cate.map((category) => (
+            <div key={category} className="mb-8">
+              {
+                category === 'k-drama' ? <div className='flex gap-[52px] items-center'>
+                  <div className='relative my-8 md:w-[60%] w-full'>
+                    <div className='flex items-center gap-4'>
+                      <div className='relative w-7 h-7'>
+                        <Image src={play_ic} alt='play_ic' fill />
+                      </div>
+                      <Typography variant="h4" className="font-semibold text-2xl text-[#B7C6FF]">{getGenreByName(category)?.title}</Typography>
+                    </div>
+                    <div style={{
+                      border: "1px solid",
+                      borderImageSource: "linear-gradient(90deg, #5176FF 0%, #1C232C 100%)",
+                      borderImageSlice: 1,
+                      width: "70%",
+                      position: "absolute",
+                      bottom: "-12px"
+                    }}></div>
+                  </div>
+                  <div className='relative flex-1 hidden md:block'>
+                    <div className='flex items-center gap-4'>
+                      <Typography variant="h4" className="font-semibold text-2xl text-[#B7C6FF]">TOP 조회수가 많음</Typography>
+                    </div>
+                    <div style={{
+                      border: "1px solid",
+                      borderImageSource: "linear-gradient(90deg, #5176FF 0%, #1C232C 100%)",
+                      borderImageSlice: 1,
+                      width: "100%",
+                      position: "absolute",
+                      bottom: "-12px"
+                    }}></div>
+                  </div>
+                </div> :
+                  <>
+                    <div className='relative my-8'>
+                      <div className='flex items-center gap-4'>
+                        <div className='relative w-7 h-7'>
+                          <Image src={play_ic} alt='play_ic' fill />
+                        </div>
+                        <Typography variant="h4" className="font-semibold text-2xl text-[#B7C6FF]">{getGenreByName(category)?.title}</Typography>
+                      </div>
+                      <div style={{
+                        border: "1px solid",
+                        borderImageSource: "linear-gradient(90deg, #5176FF 0%, #1C232C 100%)",
+                        borderImageSlice: 1,
+                        width: "70%",
+                        position: "absolute",
+                        bottom: "-12px"
+                      }}></div>
+                    </div>
+                  </>
+              }
+              {
+                screenSize === 'desktop' ?
+                  <>
+                    <ContainerMovie
+                      category={category}
+                      moviesByCategory={movies}
+                    />
+                  </>
+                  :
+                  <>
+                    <BaseSwiper moviesByCategory={movies[category]} />
+                  </>
+              }
+
+            </div >
+          ))}</>
+      }
+
+
     </>
   );
 }
